@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://pxbcfaw23pr2"]
+
+[ext_resource type="Script" uid="uid://btl6knlucvdan" path="res://scripts/touch.gd" id="1_ja7e8"]
+[ext_resource type="Texture2D" uid="uid://dtl3o216lqbdj" path="res://assets/lamp-off.png" id="1_qblk2"]
+[ext_resource type="Texture2D" uid="uid://s3qabq8bj6bn" path="res://assets/lamp-on-0.png" id="2_ja7e8"]
+[ext_resource type="Texture2D" uid="uid://dftm0h76hobvu" path="res://assets/lamp-on-1.png" id="3_dyx1v"]
+[ext_resource type="Texture2D" uid="uid://2bt8mpsmxq4j" path="res://assets/lamp-on-2.png" id="4_vydqa"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3dfsu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_qblk2")
+}],
+"loop": true,
+"name": &"off",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ja7e8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dyx1v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_vydqa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dyx1v")
+}],
+"loop": true,
+"name": &"on",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_csawp"]
+size = Vector2(74, 474)
+
+[node name="Touch" type="Area2D"]
+script = ExtResource("1_ja7e8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_3dfsu")
+animation = &"off"
+autoplay = "off"
+frame_progress = 0.593718
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -3)
+shape = SubResource("RectangleShape2D_csawp")
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
