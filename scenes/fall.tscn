@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqt8susrd5vcv"]
+
+[ext_resource type="Script" uid="uid://bjsbieoix2t85" path="res://scripts/fall.gd" id="1_t8vrx"]
+[ext_resource type="Texture2D" uid="uid://r0hcwjpg1euk" path="res://assets/dropable-0.png" id="2_thyj3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_t8vrx"]
+radius = 51.63
+
+[node name="Fall" type="RigidBody2D"]
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_t8vrx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_thyj3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_t8vrx")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

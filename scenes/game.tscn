@@ -1,17 +1,29 @@
-[gd_scene load_steps=5 format=3 uid="uid://ce1th8jfnfrga"]
+[gd_scene load_steps=8 format=3 uid="uid://ce1th8jfnfrga"]
 
 [ext_resource type="Script" uid="uid://ds2urwx8jfc6w" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://cjb7dicdgamj7" path="res://assets/apart.png" id="1_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://48htpf2ktvs4" path="res://scenes/cat.tscn" id="4_iywne"]
 [ext_resource type="PackedScene" uid="uid://pxbcfaw23pr2" path="res://scenes/touch.tscn" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://cpqdk3l4bitwa" path="res://scenes/hover.tscn" id="5_iywne"]
+
+[sub_resource type="Curve2D" id="Curve2D_lbhrr"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -640, -360, -160, 0, 160, 0, -320, -410, 0, 0, 0, 0, 0, -360, -160, 0, 160, 0, 320, -310, 0, 0, 0, 0, 640, -360, 160, 0, -160, 0, 320, -410, 0, 0, 0, 0, 0, -360, 160, 0, -160, 0, -320, -310, 0, 0, 0, 0, -640, -360)
+}
+point_count = 9
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p57ef"]
+size = Vector2(1920, 20)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lnu2h")
+hover_scene = ExtResource("5_iywne")
 
 [node name="PlayTimer" type="Timer" parent="."]
 autostart = true
 
 [node name="Apartment" type="Sprite2D" parent="."]
+visible = false
 position = Vector2(-2.66667, 1.49998)
 scale = Vector2(0.593518, 0.593518)
 texture = ExtResource("1_yqjtg")
@@ -47,14 +59,23 @@ popup/item_2/id = 2
 popup/item_3/text = "sleeping-3"
 popup/item_3/id = 3
 
-[node name="Touch0" parent="." instance=ExtResource("4_lbhrr")]
+[node name="Lamp" parent="." instance=ExtResource("4_lbhrr")]
 position = Vector2(313, 151)
 
-[node name="Touch1" parent="." instance=ExtResource("4_lbhrr")]
+[node name="TV" parent="." instance=ExtResource("4_lbhrr")]
 position = Vector2(-150, 38)
 
 [node name="Touch2" parent="." instance=ExtResource("4_lbhrr")]
 position = Vector2(-344, 234)
+
+[node name="HoverPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_lbhrr")
+
+[node name="Ground" type="StaticBody2D" parent="." groups=["ground"]]
+position = Vector2(-1, 391)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground" groups=["ground"]]
+shape = SubResource("RectangleShape2D_p57ef")
 
 [connection signal="timeout" from="PlayTimer" to="." method="_on_timer_timeout"]
 [connection signal="item_selected" from="sleeping-state" to="." method="_on_sleepingstate_item_selected"]

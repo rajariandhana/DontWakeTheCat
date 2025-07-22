@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://cpqdk3l4bitwa"]
+
+[ext_resource type="Script" uid="uid://byvy1vlfj6r1w" path="res://scripts/hover.gd" id="1_n3sop"]
+[ext_resource type="Texture2D" uid="uid://r0hcwjpg1euk" path="res://assets/dropable-0.png" id="2_8i0xm"]
+[ext_resource type="PackedScene" uid="uid://cqt8susrd5vcv" path="res://scenes/fall.tscn" id="2_vfl0y"]
+
+[node name="Hover" type="PathFollow2D"]
+rotates = false
+script = ExtResource("1_n3sop")
+fall_scene = ExtResource("2_vfl0y")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_8i0xm")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
