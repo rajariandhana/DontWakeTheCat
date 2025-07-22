@@ -2,26 +2,19 @@
 
 [ext_resource type="Script" uid="uid://ds2urwx8jfc6w" path="res://scenes/game.gd" id="1_lnu2h"]
 [ext_resource type="Texture2D" uid="uid://cjb7dicdgamj7" path="res://assets/apart.png" id="1_yqjtg"]
-[ext_resource type="Texture2D" uid="uid://b6cbvy4744xoh" path="res://assets/cat.png" id="2_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://48htpf2ktvs4" path="res://scenes/cat.tscn" id="4_iywne"]
 [ext_resource type="PackedScene" uid="uid://pxbcfaw23pr2" path="res://scenes/touch.tscn" id="4_lbhrr"]
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lnu2h")
 
 [node name="PlayTimer" type="Timer" parent="."]
-wait_time = 90.0
-one_shot = true
 autostart = true
 
 [node name="Apartment" type="Sprite2D" parent="."]
 position = Vector2(-2.66667, 1.49998)
 scale = Vector2(0.593518, 0.593518)
 texture = ExtResource("1_yqjtg")
-
-[node name="Cat" type="Sprite2D" parent="."]
-position = Vector2(-6, 215)
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_lnu2h")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
@@ -34,7 +27,34 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
 text = "Until Morning: 90 s"
 
-[node name="Touch" parent="." instance=ExtResource("4_lbhrr")]
-position = Vector2(307, 45)
+[node name="Cat" parent="." instance=ExtResource("4_iywne")]
+position = Vector2(-5, 201)
+scale = Vector2(0.487302, 0.487302)
+
+[node name="sleeping-state" type="OptionButton" parent="."]
+offset_left = -74.0
+offset_top = 281.0
+offset_right = 37.0
+offset_bottom = 312.0
+allow_reselect = true
+item_count = 4
+popup/item_0/text = "sleeping-0"
+popup/item_0/id = 0
+popup/item_1/text = "sleeping-1"
+popup/item_1/id = 1
+popup/item_2/text = "sleeping-2"
+popup/item_2/id = 2
+popup/item_3/text = "sleeping-3"
+popup/item_3/id = 3
+
+[node name="Touch0" parent="." instance=ExtResource("4_lbhrr")]
+position = Vector2(313, 151)
+
+[node name="Touch1" parent="." instance=ExtResource("4_lbhrr")]
+position = Vector2(-150, 38)
+
+[node name="Touch2" parent="." instance=ExtResource("4_lbhrr")]
+position = Vector2(-344, 234)
 
 [connection signal="timeout" from="PlayTimer" to="." method="_on_timer_timeout"]
+[connection signal="item_selected" from="sleeping-state" to="." method="_on_sleepingstate_item_selected"]
